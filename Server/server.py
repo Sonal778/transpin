@@ -14,7 +14,7 @@ output_cache = []
 input_sentence = ""
 
 
-def run_model((sentence, top_k, top_p, tokenizer, model)):
+def run_model(sentence, top_k, top_p, tokenizer, model):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = model.to(device)
 
