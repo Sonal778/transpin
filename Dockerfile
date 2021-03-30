@@ -1,4 +1,4 @@
-From pytorch/pytorch
+FROM tensorflow/tensorflow
 
 RUN apt-get update
 
