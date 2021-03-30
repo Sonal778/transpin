@@ -9,4 +9,4 @@ COPY . .
 
 WORKDIR ./Server
 
-CMD ["python",  "server.py"]
+CMD ["python", "server.py"]
