@@ -54,7 +54,6 @@ def preprocess_output(model_output, tokenizer, temp, sentence, model):
         temp = preprocess_output(model_output, tokenizer, temp, sentence, model)
     return temp
 
-//managing api calls
 
 @app.post("/spin")
 async def spinner(request: Request):
@@ -91,13 +90,10 @@ async def spinner(request: Request):
     return {"data": paraphrases}
 
 
-//demo api
-
 @app.post("/hello")
 def helo():
     return {"data": "Hello World"}
 
-//run py app
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
