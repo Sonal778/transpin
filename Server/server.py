@@ -2,6 +2,7 @@ import random
 
 import uvicorn
 from fastapi import FastAPI, Request
+from pydantic import BaseModel
 
 from transformers import T5ForConditionalGeneration, T5Tokenizer
 import torch
@@ -54,13 +55,17 @@ def preprocess_output(model_output, tokenizer, temp, sentence, model):
         temp = preprocess_output(model_output, tokenizer, temp, sentence, model)
     return temp
 
+class Item(BaseModel):
+    sentence1: str
+    top_k11: int
+    top_p11: float
+
 
 @app.post("/spin")
-async def spinner(request: Request):
-    params = await request.json()
-    sentence = params['sentence']
-    top_k1 = params['top_k']
-    top_p1 = params['top_p']
+async def spinner(item: Item):
+    sentence = Item.sentence1
+    top_k1 = Item.top_k11
+    top_p1 = Item.top_p11
     print(sentence)
 
     global input_sentence
