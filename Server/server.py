@@ -63,9 +63,9 @@ class Item(BaseModel):
 
 @app.post("/spin")
 async def spinner(item: Item):
-    sentence = Item.sentence1
-    top_k1 = Item.top_k11
-    top_p1 = Item.top_p11
+    sentence = item.sentence1
+    top_k1 = item.top_k11
+    top_p1 = item.top_p11
     print(sentence)
 
     global input_sentence
