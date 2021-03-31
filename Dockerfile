@@ -7,6 +7,10 @@ RUN pip install -r /tmp/requirements.txt
 
 COPY . .
 
+EXPOSE 5000
+
+EXPOSE $PORT
+
 WORKDIR ./Server
 
 CMD ["python", "server.py"]
