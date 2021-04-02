@@ -7,7 +7,6 @@ from pydantic import BaseModel
 from transformers import T5ForConditionalGeneration, T5Tokenizer
 import torch
 
-import tensorflow_hub as hub
 
 app = FastAPI()
 
