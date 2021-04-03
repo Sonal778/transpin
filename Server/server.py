@@ -43,58 +43,42 @@ def run_model(sentence, top_k, top_p, tokenizer, model):
 def preprocess_output(model_output, tokenizer, temp, sentence, model):
     for line in model_output:
         paraphrase = tokenizer.decode(line, skip_special_tokens=True, clean_up_tokenization_spaces=True)
-        if paraphrase.lower() != sentence.lower() and paraphrase not in temp:
-            temp.append(paraphrase)
-
-    if len(temp) < 1:
-        temp1 = temp
-        sentence = temp1[random.randint(0, len(temp1)-1)]
-
-        model_output = run_model(sentence, top_k, top_p, tokenizer, model)
-        temp = preprocess_output(model_output, tokenizer, temp, sentence, model)
-    return temp
+    return paraphrase
 
 class Item(BaseModel):
-    sentence1: str
-    top_k11: int
-    top_p11: float
+    sentence: str
+    originality: int
+    accuracy: float
 
 
 @app.post("/spin")
 async def spinner(item: Item):
-    sentence = item.sentence1
-    top_k1 = item.top_k11
-    top_p1 = item.top_p11
-    print(sentence)
+    sentence1 = item.sentence
+    top_k1 = item.originality
+    top_p1 = item.accuracy
 
     global input_sentence
     global top_k
     global top_p
-    input_sentence = sentence
-    top_p = top_p1
+    input_sentence = sentence1
     top_k = top_k1
-
+    top_p = top_p1
+    
     model = T5ForConditionalGeneration.from_pretrained('/Server/Model/')
     tokenizer = T5Tokenizer.from_pretrained('/Server/Token/')
 
-    model_output = run_model(sentence, top_k, top_p, tokenizer, model)
+    model_output = await run_model(sentence, top_k, top_p, tokenizer, model)
 
     paraphrases = []
     temp = []
 
-    temp = preprocess_output(model_output, tokenizer, temp, sentence, model)
+    temp = await preprocess_output(model_output, tokenizer, temp, sentence, model)
 
-    global output_cache
-    output_cache = temp
-
-    for i, line in enumerate(temp):
-        paraphrases.append(f"{i + 1}. {line}")
-
-    print({"data": paraphrases})
-    return {"data": paraphrases}
+    print({"data": temp})
+    return {"data": temp}
 
 
-@app.post("/hello")
+@app.get("/hello")
 def helo():
     return {"data": "Hello World"}
 
