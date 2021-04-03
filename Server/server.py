@@ -72,7 +72,7 @@ async def spinner(item: Item):
     paraphrases = []
     temp = []
 
-    temp = await preprocess_output(model_output, tokenizer, temp, sentence, model)
+    temp = await preprocess_output(model_output, tokenizer, temp, input_sentence, model)
 
     print({"data": temp})
     return {"data": temp}
