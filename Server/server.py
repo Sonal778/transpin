@@ -46,33 +46,33 @@ def preprocess_output(model_output, tokenizer, temp, sentence, model):
     return paraphrase
 
 class Item(BaseModel):
-    sentence: str
+    text: str
     originality: int
     accuracy: float
 
 
 @app.post("/spin")
-async def spinner(item: Item):
-    sentence1 = item.sentence
+def spinner(item: Item):
+    sentence1 = item.text
     top_k1 = item.originality
     top_p1 = item.accuracy
 
-    global input_sentence
+    global sentence
     global top_k
     global top_p
-    input_sentence = sentence1
+    sentence = sentence1
     top_k = top_k1
     top_p = top_p1
     
     model = T5ForConditionalGeneration.from_pretrained('/Server/Model/')
     tokenizer = T5Tokenizer.from_pretrained('/Server/Token/')
 
-    model_output = await run_model(input_sentence, top_k, top_p, tokenizer, model)
+    model_output = run_model(sentence, top_k, top_p, tokenizer, model)
 
     paraphrases = []
     temp = []
 
-    temp = await preprocess_output(model_output, tokenizer, temp, input_sentence, model)
+    temp = preprocess_output(model_output, tokenizer, temp, sentence, model)
 
     print({"data": temp})
     return {"data": temp}
