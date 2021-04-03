@@ -21,6 +21,8 @@ RUN pip3 install gdown && \
     gdown https://drive.google.com/uc?id=1-16h1St1lyvvZKyot-jggeDtXVn3RarT && \
     gdown https://drive.google.com/uc?id=1-1XAA6TSFQO5a1SWattirsoIsMtBG4oO
 
+WORKDIR /
+
 EXPOSE 5000
 
 EXPOSE $PORT
