@@ -67,7 +67,7 @@ async def spinner(item: Item):
     model = T5ForConditionalGeneration.from_pretrained('/Server/Model/')
     tokenizer = T5Tokenizer.from_pretrained('/Server/Token/')
 
-    model_output = await run_model(sentence, top_k, top_p, tokenizer, model)
+    model_output = await run_model(input_sentence, top_k, top_p, tokenizer, model)
 
     paraphrases = []
     temp = []
