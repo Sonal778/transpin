@@ -74,8 +74,8 @@ async def spinner(item: Item):
     top_p = top_p1
     top_k = top_k1
 
-    model = T5ForConditionalGeneration.from_pretrained('Vamsi/T5_Paraphrase_Paws')
-    tokenizer = T5Tokenizer.from_pretrained('Vamsi/T5_Paraphrase_Paws')
+    model = T5ForConditionalGeneration.from_pretrained('/Server/Model/')
+    tokenizer = T5Tokenizer.from_pretrained('/Server/Token/')
 
     model_output = run_model(sentence, top_k, top_p, tokenizer, model)
 
