@@ -12,6 +12,8 @@ RUN pip3 install gdown && \
     gdown https://drive.google.com/uc?id=1-1sx4qC08MgE7XZwd0MwFQpvYtMrXxGZ && \
     gdown https://drive.google.com/uc?id=1Lk3dflSpm_c0vUs88tY4GjETYqpI8Gfb
 
+WORKDIR /
+
 RUN mkdir ./Server/Token
 WORKDIR ./Server/Token
 RUN pip3 install gdown && \
